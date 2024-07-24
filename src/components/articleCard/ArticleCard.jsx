@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 function ArticleCard(props) {
     const {article} = props;
     return ( 
@@ -15,6 +15,19 @@ function ArticleCard(props) {
             </div>
         </div>
     </div>
-     );
+    );
+}
+ArticleCard.propTypes = {
+    article: PropTypes.shape({
+        id_article: PropTypes.number.isRequired,
+        title: PropTypes.string,
+        summary: PropTypes.string,
+        img_src: PropTypes.string,
+        published_at: PropTypes.string,
+        updated_at: PropTypes.string,
+        is_deleted: PropTypes.bool,
+        id_appuser: PropTypes.number.isRequired,
+        id_serie: PropTypes.number,
+    })
 }
 export default ArticleCard;
