@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import ArticleCard from '../../components/articleCard/ArticleCard';
+import ArticleCard from '../../components/cards/ArticleCard';
 import './HomeScreen.css';
 
 function HomeScreen() {
