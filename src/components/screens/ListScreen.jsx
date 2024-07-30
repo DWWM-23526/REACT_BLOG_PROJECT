@@ -42,7 +42,6 @@ function ListScreen({apiUrl, title, Card}) {
 ListScreen.propTypes = {
     apiUrl: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    Card: PropTypes.element.isRequired,
+    Card: PropTypes.func.isRequired,
 }
 export default ListScreen;
-// 
