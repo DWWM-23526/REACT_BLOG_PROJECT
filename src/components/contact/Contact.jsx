@@ -1,10 +1,43 @@
+import { useRef } from "react";
+
 function Contact() {
+
+    const fullnameInputRef = useRef();
+    const emailInputRef = useRef();
+    const messageInputRef = useRef();
+    const errorOutputRef = useRef();
+    const closeBtnRef = useRef();
+
+    const handleFormValidation = () => {
+        const isValid = {
+            fullname: false,
+            email:false,
+            message: false
+        }
+        const fullnameValue = fullnameInputRef.current.value;
+        isValid.fullname = fullnameValue.length >= 1;
+        const emailValue = emailInputRef.current.value;
+        const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        isValid.email = emailPattern.test(emailValue);
+        const messageValue = messageInputRef.current.value;
+        isValid.message = messageValue.length >= 1;
+        const formIsValid = Object.values(isValid).every(v => v == true);
+        let errorMessage = !isValid.fullname ? "Nom incorrect (1 caractère minimum)" : 
+                            !isValid.email ? "Email incorrect (format d'email invalide)" : 
+                            !isValid.message ? "Message incorrect (1 caractère minimum)" : "";
+        errorOutputRef.current.innerText = errorMessage;
+        return formIsValid;
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const jsonData = Object.fromEntries(formData.entries());
         console.log(jsonData);
+        if(!handleFormValidation()){
+            console.log("Formulaire non valide");
+            return;
+        }
         const submitData = async () => {
             const url = "http://api.php-blog-project.loc/contact";
             const options = {
@@ -18,6 +51,10 @@ function Contact() {
             }
             const json = await response.json();
             console.log(json.result);
+            closeBtnRef.current.click();
+            fullnameInputRef.current.value = "";
+            emailInputRef.current.value = "";
+            messageInputRef.current.value = "";
         }
         submitData();
     };
@@ -28,31 +65,42 @@ function Contact() {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h1 className="modal-title fs-5" id="exampleModalLabel">Contactez-nous</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button 
+                            type="button" className="btn-close" data-bs-dismiss="modal" 
+                            aria-label="Close" ref={closeBtnRef}>
+                        </button>
                     </div>
                     <div className="modal-body">
-                        <form id="contactForm" onSubmit={handleFormSubmit}>
+                        <form id="contactForm" onSubmit={handleFormSubmit} noValidate>
                             <div className="mb-3">
                                 <label className="form-label" htmlFor="fullname">Name</label>
                                 <input 
-                                    className="form-control" name="fullname" type="text" placeholder="Name" />
+                                    className="form-control" name="fullname" type="text" 
+                                    placeholder="Name" ref={fullnameInputRef}
+                                />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label" htmlFor="email">Email Address</label>
                                 <input 
-                                    className="form-control" name="email" type="email" placeholder="Email Address" />
+                                    className="form-control" name="email" type="email" 
+                                    placeholder="Email Address" ref={emailInputRef}
+                                />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label" htmlFor="message">Message</label>
                                 <textarea 
                                     className="form-control" name="message" type="text"
-                                    placeholder="Message" style={{height: '10rem'}} >
+                                    placeholder="Message" style={{height: '10rem'}} 
+                                    ref={messageInputRef}
+                                >
                                 </textarea>
                             </div>
                             <div className="mb-1 text-center">
                                 <button className="btn btn-success" name="send" type="submit">
                                     Envoyer
                                 </button>
+                                <br/>
+                                <div className="text-danger mt-2" ref={errorOutputRef}></div>
                             </div>
                         </form>
                     </div>
