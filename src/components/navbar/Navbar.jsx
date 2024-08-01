@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Contact from "../contact/Contact";
+import ModalContact from "../contact/ModalContact";
 
 function Navbar() {
     const [activeLink, setActiveLink] = useState("/home");
@@ -44,7 +44,7 @@ function Navbar() {
             </div>
         </div>
     </nav>
-    <Contact />
+    <ModalContact />
     </>);
 }
 export default Navbar;
