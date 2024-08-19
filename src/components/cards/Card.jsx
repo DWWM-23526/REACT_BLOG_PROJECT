@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 function Card({children, title, imgSrc, link, btnText}) {
     return ( 
         <div className="c col-md-6 col-lg-3 d-flex align-items-stretch justify-content-center">
@@ -8,7 +9,7 @@ function Card({children, title, imgSrc, link, btnText}) {
                 <div className="card-body text-center">
                     <h5 className="card-title">{title}</h5>
                     {children}
-                    <a href={link} className="btn btn-primary">{btnText}</a>
+                    <Link to={link} className="btn btn-primary">{btnText}</Link>
                 </div>
             </div>
         </div>

@@ -14,24 +14,24 @@ function ModalContact() {
     const closeBtnRef = useRef();
 
     useEffect(() => {
+        
+        const validateForm = () => {
+            const errors = {};
+            if (formState.fullname.trim().length < 2) {
+                errors.fullname = "Le nom doit contenir au moins 2 caractères.";
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formState.email)) {
+                errors.email = "L'email n'est pas valide.";
+            }
+            if (formState.message.trim().length < 3) {
+                errors.message = "Le message doit contenir au moins 3 caractères.";
+            }
+            setFormErrors(errors);
+            setIsFormValid(Object.keys(errors).length === 0);
+        };
         validateForm();
     }, [formState]);
-
-    const validateForm = () => {
-        const errors = {};
-        if (formState.fullname.trim().length < 2) {
-            errors.fullname = "Le nom doit contenir au moins 2 caractères.";
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formState.email)) {
-            errors.email = "L'email n'est pas valide.";
-        }
-        if (formState.message.trim().length < 3) {
-            errors.message = "Le message doit contenir au moins 3 caractères.";
-        }
-        setFormErrors(errors);
-        setIsFormValid(Object.keys(errors).length === 0);
-    };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

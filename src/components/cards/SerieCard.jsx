@@ -6,7 +6,7 @@ function SerieCard(props) {
         <Card
             title={data.title}
             imgSrc={data.img_src}
-            link={"series/details/" + data.id_serie}
+            link={"/series/articles/" + data.id_serie}
             btnText="Voir"
         >
             <p className="card-text" style={{ textAlign: "justify" }}>

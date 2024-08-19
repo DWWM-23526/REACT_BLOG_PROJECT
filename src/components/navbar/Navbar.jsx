@@ -1,11 +1,12 @@
 import { useState } from "react";
 import ModalContact from "../contact/ModalContact";
+import { Link } from "react-router-dom";
 
 function Navbar() {
     const [activeLink, setActiveLink] = useState("/home");
 
     const handleNavLinkClick = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         console.log("href=" + event.target.href);
         const url = new URL(event.target.href);
         console.log("path=" + url.pathname);
@@ -25,16 +26,16 @@ function Navbar() {
             <div className="collapse navbar-collapse ms-5" id="navbarContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item me-2">
-                        <a className={"nav-link" + (activeLink == "/home" ? " active" : "")} 
-                            href="/home" onClick={handleNavLinkClick}>Accueil</a>
+                        <Link className={"nav-link" + (activeLink == "/home" ? " active" : "")} 
+                            to="/home" onClick={handleNavLinkClick}>Accueil</Link>
                     </li>
                     <li className="nav-item me-2">
-                        <a className={"nav-link" + (activeLink == "/series" ? " active" : "")} 
-                            href="/series" onClick={handleNavLinkClick}>Séries</a>
+                        <Link className={"nav-link" + (activeLink == "/series" ? " active" : "")} 
+                            to="/series" onClick={handleNavLinkClick}>Séries</Link>
                     </li>
                     <li className="nav-item me-2">
-                        <a className={"nav-link" + (activeLink == "/techs" ? " active" : "")} 
-                            href="/techs" onClick={handleNavLinkClick}>Techs</a>
+                        <Link className={"nav-link" + (activeLink == "/techs" ? " active" : "")} 
+                            to="/techs" onClick={handleNavLinkClick}>Techs</Link>
                     </li>
                     <li className="nav-item me-2">
                         <a className="nav-link" href="#" data-bs-toggle="modal" 

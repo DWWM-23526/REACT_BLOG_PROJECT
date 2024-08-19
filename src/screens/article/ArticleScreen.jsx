@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function ArticleScreen() {
+    const { id } = useParams();
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const url = "http://api.php-blog-project.loc/article/12";
+                const url = "http://api.php-blog-project.loc/article/" + id;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error("Erreur de réseau");
@@ -22,7 +24,7 @@ function ArticleScreen() {
             }
         };
         fetchData();
-    }, []);
+    }, [id]);
 
     return (
         <main className="mt-5 pt-3 row">
